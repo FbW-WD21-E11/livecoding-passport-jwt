@@ -22,8 +22,5 @@ const generateToken = (user) => {
     });
 }
 
-const myTestFunction = () => {
 
-}
-
-export default {generateToken, myTestFunction};
+export default {generateToken};
