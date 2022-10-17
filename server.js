@@ -1,12 +1,13 @@
 import express from "express";
 import dotenv from "dotenv";
 import mongoose from "mongoose";
-import passport from 'passport';
+import passport from "passport";
+import cookieParser from "cookie-parser";
 
 //route imports
 import teaRoutes from "./routes/teaRoutes.js";
-import userRoutes from './routes/userRoutes.js';
-import orderRoutes from './routes/orderRoutes.js';
+import userRoutes from "./routes/userRoutes.js";
+import orderRoutes from "./routes/orderRoutes.js";
 
 import configureJwtStrategy from "./passport-config.js";
 
@@ -17,6 +18,8 @@ const app = express();
 
 //allow us to parse json information from http body to req.body
 app.use(express.json());
+//allow us to parse cookie information into our request object
+app.use(cookieParser());
 //initialize passport so we can use passport within our express server.
 app.use(passport.initialize());
 //configure passport to use our function / jwtstrategy
