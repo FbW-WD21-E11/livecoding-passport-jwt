@@ -11,6 +11,13 @@ import orderRoutes from "./routes/orderRoutes.js";
 
 import configureJwtStrategy from "./passport-config.js";
 
+import path from "path";
+import { fileURLToPath } from "url";
+import { dirname } from "path";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
 //Loads .env file contents into process.env.
 dotenv.config();
 
@@ -43,7 +50,13 @@ app.use("/api/teas", teaRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/orders", orderRoutes);
 
+// Serve frontend client/build folder
+app.use(express.static(path.join(__dirname, "client/build")));
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname + "/client/build/index.html"));
+});
+
 //listening for requests.
-app.listen(3000, (req, res) => {
-  console.log("Server is listening for HTTP requests on port 3000");
+app.listen(3001, (req, res) => {
+  console.log("Server is listening for HTTP requests on port 3001");
 });
