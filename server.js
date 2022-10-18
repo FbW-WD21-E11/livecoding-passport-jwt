@@ -26,7 +26,10 @@ const app = express();
 
 //allow cross resource sharing
 app.use(
-  cors()
+  cors({
+    credentials: true,
+    origin: "http://localhost:3000",
+  })
   // cors({
   //   origin: "http://localhost:3000", // we can also specify the domain we will be connecting from
   // })
