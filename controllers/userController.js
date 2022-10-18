@@ -59,7 +59,7 @@ export const registerUser = async (req, res) => {
     const userEmailExists = await User.findOne({ email: req.body.email });
 
     if (userUsernameExists || userEmailExists) {
-      return res.status(409).send("User already registered");
+      return res.status(409).send({ message: "User already registered" });
     }
 
     //creating the user document into the users collection

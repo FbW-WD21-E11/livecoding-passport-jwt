@@ -1,8 +1,10 @@
 import axios from "axios";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function Register() {
-  const [error, setError] = useState(false);
+  const [error, setError] = useState(""); //"" = falsey value
+  const navigate = useNavigate();
 
   const handleFormSubmit = async (event) => {
     event.preventDefault(); // prevent the default browser behaviour
@@ -17,15 +19,16 @@ export default function Register() {
         email: formData.get("email"),
         password: formData.get("password"),
       });
-      setError(false);
+      setError("");
+      navigate("/login");
     } catch (error) {
-      setError(true);
+      setError(error.response.data.message);
     }
   };
 
   return (
     <>
-      {error ? <p>Error creating user, please try again</p> : null}
+      {error ? <p>{error}</p> : null}
       <form onSubmit={handleFormSubmit}>
         <label>
           First Name
