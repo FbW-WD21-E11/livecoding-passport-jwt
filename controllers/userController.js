@@ -47,6 +47,14 @@ export const login = async (req, res) => {
   }
 };
 
+export const logout = (req, res) => {
+  res.clearCookie("jwt", {
+    httpOnly: true,
+    secure: false, // we are not using https
+    sameSite: false,
+  });
+};
+
 export const registerUser = async (req, res) => {
   //we're hashing the password that the user provided us.
   // we don't want to store the password in plain text in the db

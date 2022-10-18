@@ -1,8 +1,10 @@
 import axios from "axios";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-export default function Login() {
+export default function Login({ setLoggedIn }) {
   const [error, setError] = useState("");
+  const navigate = useNavigate();
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
@@ -11,7 +13,7 @@ export default function Login() {
 
     try {
       await axios.post(
-        "http://localhost:3001/api/users/login",
+        `${process.env.REACT_APP_URL}/api/users/login/`,
         {
           email: formData.get("email"),
           password: formData.get("password"),
@@ -21,8 +23,11 @@ export default function Login() {
         }
       );
       setError("");
+      setLoggedIn(true);
+      navigate("/orders");
     } catch (error) {
       setError(error.response.data.message);
+      setLoggedIn(false);
     }
   };
 
