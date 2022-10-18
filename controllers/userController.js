@@ -53,6 +53,15 @@ export const registerUser = async (req, res) => {
   const hashedPassword = await bcrypt.hash(req.body.password, 10);
 
   try {
+    const userUsernameExists = await User.findOne({
+      userName: req.body.userName,
+    });
+    const userEmailExists = await User.findOne({ email: req.body.email });
+
+    if (userUsernameExists || userEmailExists) {
+      return res.status(409).send("User already registered");
+    }
+
     //creating the user document into the users collection
     const createdUser = await User.create({
       firstName: req.body.firstName,

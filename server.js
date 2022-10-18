@@ -1,3 +1,4 @@
+import cors from "cors";
 import express from "express";
 import dotenv from "dotenv";
 import mongoose from "mongoose";
@@ -23,6 +24,13 @@ dotenv.config();
 
 const app = express();
 
+//allow cross resource sharing
+app.use(
+  cors()
+  // cors({
+  //   origin: "http://localhost:3000", // we can also specify the domain we will be connecting from
+  // })
+);
 //allow us to parse json information from http body to req.body
 app.use(express.json());
 //allow us to parse cookie information into our request object
