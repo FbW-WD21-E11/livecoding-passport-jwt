@@ -3,7 +3,9 @@ import { Link } from "react-router-dom";
 
 export default function PrivateNavigation({ setLoggedIn }) {
   const handleLogout = async () => {
-    axios.get(`${process.env.REACT_APP_URL}/api/users/logout`);
+    axios.get(`${process.env.REACT_APP_URL}/api/users/logout`, {
+      withCredentials: true,
+    });
     setLoggedIn(false);
   };
 
